@@ -1,0 +1,22 @@
+{
+  "name": "mabede",
+  "version": "0.0.0",
+  "description": "A database accessed through a Node.js API",
+  "main": "mabede.js",
+  "scripts": {
+    "start": "node ./mabede.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GRV96/mabede.git"
+  },
+  "author": "Guyllaume Rousseau",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GRV96/mabede/issues"
+  },
+  "homepage": "https://github.com/GRV96/mabede#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
