@@ -2,6 +2,16 @@
 
 Mabede is a database accessible through a Node.js API.
 
+Start the application:
+```
+docker-compose up -d
+```
+
+Stop the application:
+```
+docker-compose down
+```
+
 ### Description
 
 `GET` `[host name]:80/`

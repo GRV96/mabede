@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  mabede:
+    container_name: mabede
+    build:
+      context: ./mabede
+    ports:
+      - 80:3000
