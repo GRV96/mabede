@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-	res.status(200).send("A database accessed through a Node.js API");
+	res.status(200).send("A database accessible through a Node.js API");
 });
 
 app.post("/record-weather", (req, res) => {
