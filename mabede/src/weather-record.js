@@ -6,7 +6,7 @@ class WeatherRecord {
 		this.windSpeed = windSpeed;
 	}
 
-	toString = () => `WeatherRecord\n{\n\tmoment: ${this.moment},\n\ttemperature: ${this.temperature},\n\tpreciProb: ${this.preciProb},\n\twindSpeed: ${this.windSpeed}\n}`;
+	toString = () => `WeatherRecord\n${JSON.stringify(this, null, 4)}`;
 }
 
 module.exports = WeatherRecord;
