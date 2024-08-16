@@ -14,6 +14,8 @@ app.get("/", (req, res) => {
 
 app.post("/record-weather", (req, res) => {
 	const reqBody = req.body;
+	success = db.registerWeather(reqBody.moment, reqBody.temperature, reqBody. preciProb, reqBody.windSpeed);
+	console.log(`Weather recorded in the database: ${success}`);
 	const weatherRecord = new WeatherRecord(reqBody.moment, reqBody.temperature, reqBody. preciProb, reqBody.windSpeed);
 	console.log(`${weatherRecord}`);
 	res.sendStatus(200);

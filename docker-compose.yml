@@ -13,6 +13,8 @@ services:
   database:
     container_name: database
     image: mysql:9.0
+    ports:
+      - 3307:3306
     env_file:
       - ./env/database.env
     volumes:

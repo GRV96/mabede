@@ -24,10 +24,11 @@ The above request returns the API's description.
 
 The above request writes weather data in the database.
 The request's body must be a JSON string such as the one below.
+Always use the datetime format `YYYY-MM-DD hh:mm:ss`.
 
 ```
 {
-    "moment": "2024-08-12T21:30:00",
+    "moment": "2024-08-12 21:30:00",
     "temperature": 19,
     "preciProb": 20,
     "windSpeed": 9
