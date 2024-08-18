@@ -2,7 +2,6 @@ const bodyParser = require("body-parser");
 const express = require("express");
 
 const db = require("./database");
-const WeatherRecord = require("./weather-record");
 
 const app = express();
 

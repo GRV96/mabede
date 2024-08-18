@@ -1,5 +1,4 @@
 const mysql = require("mysql2");
-const WeatherRecord = require("./weather-record");
 
 const pool = mysql.createPool({
 	host: "database",
