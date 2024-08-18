@@ -10,19 +10,13 @@ const pool = mysql.createPool({
 
 const promise = pool.promise();
 
-//*
-try {
-	//promise.execute("CREATE DATABASE IF NOT EXISTS mabede-database;");
-	promise.execute(
-		"CREATE TABLE IF NOT EXISTS WeatherRecords (" +
-		"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
-		"moment DATETIME NOT NULL," +
-		"temperature DOUBLE NOT NULL," +
-		"preciProb DOUBLE NOT NULL," +
-		"windSpeed DOUBLE NOT NULL);");}
-catch (err) {
-	console.log(err);
-}//*/
+promise.execute(
+	"CREATE TABLE IF NOT EXISTS WeatherRecords (" +
+	"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+	"moment DATETIME NOT NULL," +
+	"temperature DOUBLE NOT NULL," +
+	"preciProb DOUBLE NOT NULL," +
+	"windSpeed DOUBLE NOT NULL);");
 console.log("Table created");
 
 function getWeatherRecords(startMoment, endMoment) {
