@@ -8,7 +8,8 @@ services:
     ports:
       - 80:3000
     depends_on:
-      - database
+      database:
+        condition: service_completed_successfully
 
   database:
     container_name: database

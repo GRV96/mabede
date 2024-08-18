@@ -10,7 +10,7 @@ const pool = mysql.createPool({
 
 const promise = pool.promise();
 
-/*
+//*
 try {
 	//promise.execute("CREATE DATABASE IF NOT EXISTS mabede-database;");
 	promise.execute(
