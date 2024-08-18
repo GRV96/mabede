@@ -26,7 +26,7 @@ app.get("/read-weather", (req, res) => {
 
 app.post("/record-weather", (req, res) => {
 	const reqBody = req.body;
-	db.registerWeather(reqBody.moment, reqBody.temperature, reqBody. preciProb, reqBody.windSpeed)
+	db.registerWeather(req.body)
 	.then(() => {
 		res.sendStatus(200);
 	}).catch(err => {

@@ -36,11 +36,23 @@ function getWeatherRecords(startMoment, endMoment) {
 	});
 }
 
-function registerWeather(moment, temperature, preciProb, windSpeed) {
+function makeValuesToInsert(weatherData) {
+	if (Array.isArray(weatherData)) {
+		let tuples = weatherData.map(
+			weatherRecord => weatherRecordToValueTuple(weatherRecord));
+		return tuples.join(",\n");
+	}
+	else {
+		return weatherRecordToValueTuple(weatherData);
+	}
+}
+
+function registerWeather(weatherData) {
 	return new Promise((resolve, reject) => {
-		const values = `('${moment}', ${temperature}, ${preciProb}, ${windSpeed})`;
+		const values = makeValuesToInsert(weatherData);
+		// Having the value tuples on several lines will help debugging.
 		const insertionQuery =
-			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES ${values};`;
+			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES\n${values};`;
 		poolPromise.execute(insertionQuery)
 		.then(result => {
 			return resolve(null);
@@ -48,6 +60,10 @@ function registerWeather(moment, temperature, preciProb, windSpeed) {
 			return reject(err);
 		});
 	});
+}
+
+function weatherRecordToValueTuple(weatherRecord) {
+	return `('${weatherRecord.moment}', ${weatherRecord.temperature}, ${weatherRecord.preciProb}, ${weatherRecord.windSpeed})`;
 }
 
 module.exports = {getWeatherRecords, registerWeather};
