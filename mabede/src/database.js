@@ -19,10 +19,6 @@ poolPromise.execute(
 	"preciProb DOUBLE NOT NULL," +
 	"windSpeed DOUBLE NOT NULL);");
 
-function dataToWeatherRecord(data) {
-	return new WeatherRecord(data.moment, data.temperature, data.preciProb, data.windSpeed);
-}
-
 function getWeatherRecords(startMoment, endMoment) {
 	return new Promise((resolve, reject) => {
 		const selectQuery =
@@ -36,7 +32,7 @@ function getWeatherRecords(startMoment, endMoment) {
 	});
 }
 
-function makeValuesToInsert(weatherData) {
+function makeValueTuplesToInsert(weatherData) {
 	if (Array.isArray(weatherData)) {
 		let tuples = weatherData.map(
 			weatherRecord => weatherRecordToValueTuple(weatherRecord));
@@ -49,10 +45,10 @@ function makeValuesToInsert(weatherData) {
 
 function registerWeather(weatherData) {
 	return new Promise((resolve, reject) => {
-		const values = makeValuesToInsert(weatherData);
+		const valueTuples = makeValueTuplesToInsert(weatherData);
 		// Having the value tuples on several lines will help debugging.
 		const insertionQuery =
-			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES\n${values};`;
+			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES\n${valueTuples};`;
 		poolPromise.execute(insertionQuery)
 		.then(result => {
 			return resolve(null);
