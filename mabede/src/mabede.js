@@ -12,6 +12,15 @@ app.get("/", (req, res) => {
 	res.status(200).send("A database accessible through a Node.js API");
 });
 
+app.get("/read-weather", (req, res) => {
+	const query = req.query;
+	const startMoment = query.startMoment.replace("T", " ");
+	const endMoment = query.endMoment.replace("T", " ");
+	const weatherRecords = db.getWeatherRecords(startMoment, endMoment);
+	console.log(weatherRecords);
+	res.status(200).send(weatherRecords);
+});
+
 app.post("/record-weather", (req, res) => {
 	const reqBody = req.body;
 	success = db.registerWeather(reqBody.moment, reqBody.temperature, reqBody. preciProb, reqBody.windSpeed);
