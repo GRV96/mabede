@@ -8,6 +8,17 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.delete("/delete-weather", (req, res) => {
+	const query = req.query;
+	db.deleteWeatherRecord(query.id)
+	.then(() => {
+		res.sendStatus(200);
+	})
+	.catch(err => {
+		res.status(500).send(err);
+	});
+});
+
 app.get("/", (req, res) => {
 	res.status(200).send("A database accessible through a Node.js API");
 });
