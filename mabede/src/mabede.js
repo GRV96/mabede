@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 	res.status(200).send("A database accessible through a Node.js API");
 });
 
-app.get("/read-weather", (req, res) => {
+app.get("/get-weather", (req, res) => {
 	const query = req.query;
 	const startMoment = query.startMoment.replace("T", " ");
 	const endMoment = query.endMoment.replace("T", " ");
@@ -34,9 +34,9 @@ app.get("/read-weather", (req, res) => {
 	});
 });
 
-app.post("/record-weather", (req, res) => {
+app.post("/add-weather", (req, res) => {
 	const reqBody = req.body;
-	db.recordWeather(req.body)
+	db.addWeatherRecord(reqBody)
 	.then(() => {
 		res.sendStatus(200);
 	}).catch(err => {

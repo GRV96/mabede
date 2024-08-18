@@ -18,6 +18,20 @@ poolPromise.execute(
 	"preciProb DOUBLE NOT NULL," +
 	"windSpeed DOUBLE NOT NULL);");
 
+function addWeatherRecord(weatherData) {
+	return new Promise((resolve, reject) => {
+		const valueTuples = makeValueTuplesToInsert(weatherData);
+		const insertionQuery =
+			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES\n${valueTuples};`;
+		poolPromise.execute(insertionQuery)
+		.then(() => {
+			return resolve();
+		}).catch(err => {
+			return reject(err);
+		});
+	});
+}
+
 function deleteWeatherRecord(weatherRecordId) {
 	return new Promise((resolve, reject) => {
 		const deletionQuery = `DELETE FROM WeatherRecords WHERE id = ${weatherRecordId}`;
@@ -55,22 +69,8 @@ function makeValueTuplesToInsert(weatherData) {
 	}
 }
 
-function recordWeather(weatherData) {
-	return new Promise((resolve, reject) => {
-		const valueTuples = makeValueTuplesToInsert(weatherData);
-		const insertionQuery =
-			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES\n${valueTuples};`;
-		poolPromise.execute(insertionQuery)
-		.then(() => {
-			return resolve();
-		}).catch(err => {
-			return reject(err);
-		});
-	});
-}
-
 function weatherRecordToValueTuple(weatherRecord) {
 	return `('${weatherRecord.moment}', ${weatherRecord.temperature}, ${weatherRecord.preciProb}, ${weatherRecord.windSpeed})`;
 }
 
-module.exports = {deleteWeatherRecord, getWeatherRecords, recordWeather};
+module.exports = {addWeatherRecord, deleteWeatherRecord, getWeatherRecords};
