@@ -4,7 +4,7 @@ const WeatherRecord = require("./weather-record");
 const pool = mysql.createPool({
 	host: "database",
 	port: "3306",
-	database: "mabede-database",
+	database: "MabedeDatabase",
 	user: "utilisateur",
 	password: "mot-de-passe"
 });
@@ -12,7 +12,6 @@ const pool = mysql.createPool({
 const poolPromise = pool.promise();
 
 poolPromise.execute(
-	//"USE mabede-database;\n" +
 	"CREATE TABLE IF NOT EXISTS WeatherRecords (" +
 	"id INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
 	"moment DATETIME NOT NULL," +
@@ -25,34 +24,30 @@ function dataToWeatherRecord(data) {
 }
 
 function getWeatherRecords(startMoment, endMoment) {
-	let data;
-	poolPromise.execute(
-		`SELECT * FROM WeatherRecords wr WHERE wr.moment >= '${startMoment}' AND wr.moment <= '${endMoment}';`)
-	.then(result => data = result)
-	.catch(err => console.log(err));
-	console.log(`Data:\n${data}`);
-
-	let retval;
-	if (Array.isArray(data)) {
-		retval = data.map(d => dataToWeatherRecord(d));
-	}
-	else {
-		retval = dataToWeatherRecord(data);
-	}
-	console.log(`Result:\n${retval}`);
-
-	return retval;
+	return new Promise((resolve, reject) => {
+		const selectQuery =
+			`SELECT * FROM WeatherRecords wr WHERE wr.moment >= '${startMoment}' AND wr.moment <= '${endMoment}';`;
+		poolPromise.execute(selectQuery)
+		.then(result => {
+			return resolve(result[0]);
+		}).catch(error => {
+			return reject(error);
+		});
+	});
 }
 
 function registerWeather(moment, temperature, preciProb, windSpeed) {
-	let success = true;
-	const values = `('${moment}', ${temperature}, ${preciProb}, ${windSpeed})`;
-	poolPromise.execute(`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES ${values};`)
-	.catch((err) => {
-		success = false;
-		console.log(err);
+	return new Promise((resolve, reject) => {
+		const values = `('${moment}', ${temperature}, ${preciProb}, ${windSpeed})`;
+		const insertionQuery =
+			`INSERT INTO WeatherRecords (moment, temperature, preciProb, windSpeed) VALUES ${values};`;
+		poolPromise.execute(insertionQuery)
+		.then(result => {
+			return resolve(null);
+		}).catch(err => {
+			return reject(err);
+		});
 	});
-	return success;
 }
 
 module.exports = {getWeatherRecords, registerWeather};
