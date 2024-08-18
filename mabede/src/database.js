@@ -25,18 +25,23 @@ function dataToWeatherRecord(data) {
 }
 
 function getWeatherRecords(startMoment, endMoment) {
-	let data = poolPromise.execute(
-		`SELECT * FROM WeatherRecords wr WHERE wr.moment >= ${startMoment} AND wr.moment <= ${endMoment};`);
+	let data;
+	poolPromise.execute(
+		`SELECT * FROM WeatherRecords wr WHERE wr.moment >= '${startMoment}' AND wr.moment <= '${endMoment}';`)
+	.then(result => data = result)
+	.catch(err => console.log(err));
+	console.log(`Data:\n${data}`);
 
-	let result;
+	let retval;
 	if (Array.isArray(data)) {
-		result = data.map(d => dataToWeatherRecord(d));
+		retval = data.map(d => dataToWeatherRecord(d));
 	}
 	else {
-		result = dataToWeatherRecord(data);
+		retval = dataToWeatherRecord(data);
 	}
+	console.log(`Result:\n${retval}`);
 
-	return result;
+	return retval;
 }
 
 function registerWeather(moment, temperature, preciProb, windSpeed) {
