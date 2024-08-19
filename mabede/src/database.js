@@ -47,7 +47,7 @@ function deleteWeatherRecord(weatherRecordId) {
 function getWeatherRecords(startMoment, endMoment) {
 	return new Promise((resolve, reject) => {
 		const selectionQuery =
-			`SELECT * FROM WeatherRecords wr WHERE wr.moment >= '${startMoment}' AND wr.moment <= '${endMoment}';`;
+			`SELECT * FROM WeatherRecords WHERE moment >= '${startMoment}' AND moment <= '${endMoment}';`;
 		poolPromise.execute(selectionQuery)
 		.then(result => {
 			return resolve(result[0]);
