@@ -7,18 +7,18 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.delete("/delete-weather", (req, res) => {
+app.get("/", (req, res) => {
+	res.status(200).send("A database accessible through a Node.js API");
+});
+
+app.post("/add-weather", (req, res) => {
 	const reqBody = req.body;
-	db.deleteWeatherRecord(reqBody)
+	db.addWeatherRecord(reqBody)
 	.then(() => {
 		res.sendStatus(200);
 	}).catch(err => {
-		res.status(err.statusCode).send(err.content);
+		res.status(error.statusCode).send(err.content);
 	});
-});
-
-app.get("/", (req, res) => {
-	res.status(200).send("A database accessible through a Node.js API");
 });
 
 app.get("/get-weather", (req, res) => {
@@ -34,13 +34,13 @@ app.get("/get-weather", (req, res) => {
 	});
 });
 
-app.post("/add-weather", (req, res) => {
+app.delete("/delete-weather", (req, res) => {
 	const reqBody = req.body;
-	db.addWeatherRecord(reqBody)
+	db.deleteWeatherRecord(reqBody)
 	.then(() => {
 		res.sendStatus(200);
 	}).catch(err => {
-		res.status(error.statusCode).send(err.content);
+		res.status(err.statusCode).send(err.content);
 	});
 });
 
