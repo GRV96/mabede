@@ -17,7 +17,7 @@ services:
     env_file:
       - ./env/database.env
     volumes:
-      - mabede-database:/database
+      - mabede-database:/var/lib/mysql
 
 volumes:
   mabede-database:

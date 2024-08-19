@@ -43,7 +43,7 @@ Each weather record must have the following attributes.
 {
     "moment": "2024-08-12 21:30:00",
     "temperature": 19,
-    "preciProb": 20,
+    "preciProb": 0.20,
     "windSpeed": 9
 }
 ```
@@ -54,14 +54,20 @@ Each weather record must have the following attributes.
     {
         "moment": "2024-08-12 21:30:00",
         "temperature": 19,
-        "preciProb": 20,
+        "preciProb": 0.20,
         "windSpeed": 9
     },
     {
         "moment": "2024-08-18 16:07:50",
         "temperature": 25,
-        "preciProb": 30,
+        "preciProb": 0.30,
         "windSpeed": 18
+    },
+    {
+        "moment": "2024-08-19 18:13:13",
+        "temperature": 14,
+        "preciProb": 0.70,
+        "windSpeed": 16
     }
 ]
 ```
