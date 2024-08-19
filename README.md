@@ -13,6 +13,11 @@ Stop the application:
 docker-compose down
 ```
 
+Delete the image created with docker-compose:
+```
+docker image rm mabede-mabede
+```
+
 ### Description
 
 `GET` `[host name]:80/`
