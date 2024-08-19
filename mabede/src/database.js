@@ -1,6 +1,6 @@
 const mysql = require("mysql2");
 
-const INVALID_IDS_MESSAGE = "IDs: an array of one or more integers is required.";
+const INVALID_IDS_MESSAGE = "IDs: an array of integers is required.";
 
 const TYPE_STRING = "string";
 
@@ -40,7 +40,7 @@ function addWeatherRecord(weatherData) {
 		.then(() => {
 			return resolve();
 		}).catch(err => {
-			return reject(err);
+			return reject(new MabedeError(500, err));
 		});
 	});
 }
@@ -93,8 +93,12 @@ function makeValueTuplesToInsert(weatherData) {
 }
 
 function makeWhereClauseMultipleIds(columnName, ids) {
-	if (!Array.isArray(ids) || ids.length == 0) {
+	if (!Array.isArray(ids)) {
 		return new MabedeError(400, INVALID_IDS_MESSAGE);
+	}
+
+	if (ids.length == 0) {
+		return "";
 	}
 
 	ids.forEach(id => {
