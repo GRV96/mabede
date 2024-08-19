@@ -24,8 +24,9 @@ app.get("/", (req, res) => {
 
 app.get("/get-weather", (req, res) => {
 	const query = req.query;
-	const startMoment = query.startMoment.replace("T", " ");
-	const endMoment = query.endMoment.replace("T", " ");
+	const startMoment = query.startMoment == undefined ? undefined : query.startMoment.replace("T", " ");
+	const endMoment = query.endMoment == undefined ? undefined : query.endMoment.replace("T", " ");
+
 	db.getWeatherRecords(startMoment, endMoment)
 	.then(weatherRecords => {
 		res.status(200).send(weatherRecords);

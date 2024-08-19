@@ -47,7 +47,7 @@ function deleteWeatherRecord(weatherRecordId) {
 function getWeatherRecords(startMoment, endMoment) {
 	return new Promise((resolve, reject) => {
 		const selectionQuery =
-			`SELECT * FROM WeatherRecords WHERE moment >= '${startMoment}' AND moment <= '${endMoment}';`;
+			`SELECT * FROM WeatherRecords${makeWhereClauseTimeInterval("moment", startMoment, endMoment)};`;
 		poolPromise.execute(selectionQuery)
 		.then(result => {
 			return resolve(result[0]);
@@ -67,6 +67,32 @@ function makeValueTuplesToInsert(weatherData) {
 	else {
 		return weatherRecordToValueTuple(weatherData);
 	}
+}
+
+function makeWhereClauseTimeInterval(columnName, startTime, endTime) {
+	const isStartTimeDefined = startTime != undefined && startTime != null;
+	const isEndTimeDefined = endTime != undefined && endTime != null;
+
+	if (!isStartTimeDefined && !isEndTimeDefined)
+	{
+		return "";
+	}
+
+	let whereClause = " WHERE ";
+
+	if (isStartTimeDefined) {
+		whereClause += `${columnName} >= '${startTime}'`;
+	}
+
+	if (isEndTimeDefined) {
+		if (isStartTimeDefined) {
+			whereClause += " AND ";
+		}
+
+		whereClause += `${columnName} <= '${endTime}'`;
+	}
+
+	return whereClause;
 }
 
 function weatherRecordToValueTuple(weatherRecord) {
