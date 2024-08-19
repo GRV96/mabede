@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
-const INVALID_IDS_MESSAGE = "IDs: an array of integers is required.";
-
+const EMPTY_STR = "";
+const INVALID_IDS_MESSAGE = "IDs: an empty request body or an array of integers is required.";
 const TYPE_STRING = "string";
 
 class MabedeError {
@@ -93,12 +93,16 @@ function makeValueTuplesToInsert(weatherData) {
 }
 
 function makeWhereClauseMultipleIds(columnName, ids) {
+	if (ids == null || ids == undefined || /* Empty object */ Object.keys(ids).length == 0) {
+		return EMPTY_STR;
+	}
+
 	if (!Array.isArray(ids)) {
 		return new MabedeError(400, INVALID_IDS_MESSAGE);
 	}
 
 	if (ids.length == 0) {
-		return "";
+		return EMPTY_STR;
 	}
 
 	ids.forEach(id => {
