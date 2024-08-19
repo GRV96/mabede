@@ -1,5 +1,14 @@
 const mysql = require("mysql2");
 
+class MabedeError {
+	constructor(statusCode, content) {
+		this.statusCode = statusCode;
+		this.content = content;
+	}
+
+	toString = () => `[${this.statusCode}] ${this.content}`;
+}
+
 const pool = mysql.createPool({
 	host: "database",
 	port: "3306",
@@ -39,20 +48,24 @@ function deleteWeatherRecord(weatherRecordId) {
 		.then(() => {
 			return resolve();
 		}).catch(err => {
-			return reject(err);
+			return reject(new MabedeError(500, err));
 		});
 	});
 }
 
 function getWeatherRecords(startMoment, endMoment) {
 	return new Promise((resolve, reject) => {
+		if (new Date(endMoment) <= new Date(startMoment)) {
+			reject(new MabedeError(400, "Argument endMoment must be later than startMoment."));
+		}
+
 		const selectionQuery =
 			`SELECT * FROM WeatherRecords${makeWhereClauseTimeInterval("moment", startMoment, endMoment)};`;
 		poolPromise.execute(selectionQuery)
 		.then(result => {
 			return resolve(result[0]);
 		}).catch(err => {
-			return reject(err);
+			return reject(new MabedeError(500, err));
 		});
 	});
 }
@@ -69,27 +82,27 @@ function makeValueTuplesToInsert(weatherData) {
 	}
 }
 
-function makeWhereClauseTimeInterval(columnName, startTime, endTime) {
-	const isStartTimeDefined = startTime != undefined && startTime != null;
-	const isEndTimeDefined = endTime != undefined && endTime != null;
+function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
+	const isStartMomentDefined = startMoment != undefined && startMoment != null;
+	const isEndMomentDefined = endMoment != undefined && endMoment != null;
 
-	if (!isStartTimeDefined && !isEndTimeDefined)
+	if (!isStartMomentDefined && !isEndMomentDefined)
 	{
 		return "";
 	}
 
 	let whereClause = " WHERE ";
 
-	if (isStartTimeDefined) {
-		whereClause += `${columnName} >= '${startTime}'`;
+	if (isStartMomentDefined) {
+		whereClause += `${columnName} >= '${startMoment}'`;
 	}
 
-	if (isEndTimeDefined) {
-		if (isStartTimeDefined) {
+	if (isEndMomentDefined) {
+		if (isStartMomentDefined) {
 			whereClause += " AND ";
 		}
 
-		whereClause += `${columnName} <= '${endTime}'`;
+		whereClause += `${columnName} <= '${endMoment}'`;
 	}
 
 	return whereClause;

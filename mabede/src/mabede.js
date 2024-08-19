@@ -12,9 +12,8 @@ app.delete("/delete-weather", (req, res) => {
 	db.deleteWeatherRecord(query.id)
 	.then(() => {
 		res.sendStatus(200);
-	})
-	.catch(err => {
-		res.status(500).send(err);
+	}).catch(err => {
+		res.status(err.statusCode).send(err.content);
 	});
 });
 
@@ -31,7 +30,7 @@ app.get("/get-weather", (req, res) => {
 	.then(weatherRecords => {
 		res.status(200).send(weatherRecords);
 	}).catch(err => {
-		res.status(500).send(err);
+		res.status(err.statusCode).send(err.content);
 	});
 });
 
@@ -41,7 +40,7 @@ app.post("/add-weather", (req, res) => {
 	.then(() => {
 		res.sendStatus(200);
 	}).catch(err => {
-		res.status(500).send(err);
+		res.status(error.statusCode).send(err.content);
 	});
 });
 
