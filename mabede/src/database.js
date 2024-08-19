@@ -53,8 +53,7 @@ function deleteWeatherRecord(weatherRecordIds) {
 			return reject(whereClause);
 		}
 
-		const deletionQuery =
-			`DELETE FROM WeatherRecords${whereClause};`;
+		const deletionQuery = `DELETE FROM WeatherRecords${whereClause};`;
 		poolPromise.execute(deletionQuery)
 		.then(() => {
 			return resolve();
