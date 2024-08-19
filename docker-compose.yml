@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  mabede:
+    container_name: mabede
+    build:
+      context: ./mabede
+    ports:
+      - 80:3000
+    restart: always
+    depends_on:
+      - database
+
+  database:
+    container_name: database
+    image: mysql:9.0
+    env_file:
+      - ./env/database.env
+    volumes:
+      - mabede-database:/var/lib/mysql
+
+volumes:
+  mabede-database:
