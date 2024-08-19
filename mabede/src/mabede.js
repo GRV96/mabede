@@ -8,8 +8,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.delete("/delete-weather", (req, res) => {
-	const query = req.query;
-	db.deleteWeatherRecord(query.id)
+	const reqBody = req.body;
+	db.deleteWeatherRecord(reqBody)
 	.then(() => {
 		res.sendStatus(200);
 	}).catch(err => {

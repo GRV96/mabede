@@ -1,5 +1,9 @@
 const mysql = require("mysql2");
 
+const INVALID_IDS_MESSAGE = "IDs: an array of one or more integers is required.";
+
+const TYPE_STRING = "string";
+
 class MabedeError {
 	constructor(statusCode, content) {
 		this.statusCode = statusCode;
@@ -41,9 +45,16 @@ function addWeatherRecord(weatherData) {
 	});
 }
 
-function deleteWeatherRecord(weatherRecordId) {
+function deleteWeatherRecord(weatherRecordIds) {
 	return new Promise((resolve, reject) => {
-		const deletionQuery = `DELETE FROM WeatherRecords WHERE id = ${weatherRecordId}`;
+		const whereClause = makeWhereClauseMultipleIds("id", weatherRecordIds);
+		if (typeof whereClause !== TYPE_STRING) {
+			// It is a MabedeError.
+			return reject(whereClause);
+		}
+
+		const deletionQuery =
+			`DELETE FROM WeatherRecords${whereClause};`;
 		poolPromise.execute(deletionQuery)
 		.then(() => {
 			return resolve();
@@ -80,6 +91,20 @@ function makeValueTuplesToInsert(weatherData) {
 	else {
 		return weatherRecordToValueTuple(weatherData);
 	}
+}
+
+function makeWhereClauseMultipleIds(columnName, ids) {
+	if (!Array.isArray(ids) || ids.length == 0) {
+		return new MabedeError(400, INVALID_IDS_MESSAGE);
+	}
+
+	ids.forEach(id => {
+		if (!Number.isInteger(id)) {
+			return new MabedeError(400, INVALID_IDS_MESSAGE);
+		}
+	});
+
+	return ` WHERE ${columnName} IN (${ids.join(", ")})`;
 }
 
 function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
