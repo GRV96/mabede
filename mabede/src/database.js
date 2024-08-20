@@ -14,11 +14,11 @@ class MabedeError {
 }
 
 const pool = mysql.createPool({
-	host: "database",
-	port: "3306",
-	database: "MabedeDatabase",
-	user: "utilisateur",
-	password: "mot-de-passe"
+	host: process.env.MYSQL_HOST,
+	port: process.env.MYSQL_TCP_PORT,
+	database: process.env.MYSQL_DATABASE,
+	user: process.env.MYSQL_USER,
+	password: process.env.MYSQL_PASSWORD
 });
 
 const poolPromise = pool.promise();
@@ -120,7 +120,7 @@ function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
 
 	if (!isStartMomentDefined && !isEndMomentDefined)
 	{
-		return "";
+		return EMPTY_STR;
 	}
 
 	let whereClause = " WHERE ";
