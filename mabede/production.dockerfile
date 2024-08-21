@@ -1,4 +1,5 @@
-FROM node:22.5
+ARG NODE_VERSION
+FROM node:${NODE_VERSION}
 
 WORKDIR /app
 
@@ -8,6 +9,7 @@ RUN npm install
 
 COPY ./src /app/src
 
-EXPOSE 3000
+ARG EXPOSED_PORT
+EXPOSE ${EXPOSED_PORT}
 
 CMD ["npm", "start"]
