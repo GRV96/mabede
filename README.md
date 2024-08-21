@@ -3,9 +3,14 @@
 Mabede is a database accessible through a Node.js API.
 Always use the datetime format `YYYY-MM-DD hh:mm:ss` in the requests.
 
-Start the application:
+Start the application in **production**:
 ```
-docker-compose up -d
+docker-compose up -d --build
+```
+
+Start the application in **development**:
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
 ```
 
 Stop the application:
@@ -13,7 +18,8 @@ Stop the application:
 docker-compose down
 ```
 
-Delete the image created with docker-compose:
+The `--build` flag rebuilds the image every time the application starts.
+Without this flag, updating the image requires deleting it before starting.
 ```
 docker image rm mabede-mabede
 ```
