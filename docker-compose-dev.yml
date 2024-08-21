@@ -1,5 +1,5 @@
 services:
-  mabede:
+  mabede: # Overrides service mabede in docker-compose.yml.
     build:
       dockerfile: ./development.dockerfile
     volumes:
