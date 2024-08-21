@@ -19,7 +19,7 @@ docker-compose down
 ```
 
 The `--build` flag rebuilds the image every time the application starts.
-Without it, you need to delete the image before restarting.
+Without this flag, updating the image requires deleting it before starting.
 ```
 docker image rm mabede-mabede
 ```
