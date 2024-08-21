@@ -5,12 +5,12 @@ Always use the datetime format `YYYY-MM-DD hh:mm:ss` in the requests.
 
 Start the application in **production**:
 ```
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 Start the application in **development**:
 ```
-docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
 ```
 
 Stop the application:
@@ -18,7 +18,8 @@ Stop the application:
 docker-compose down
 ```
 
-Delete the image created with docker-compose:
+The `--build` flag rebuilds the image every time the application starts.
+Without it, you need to delete the image before restarting.
 ```
 docker image rm mabede-mabede
 ```
