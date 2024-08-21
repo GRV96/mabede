@@ -3,9 +3,14 @@
 Mabede is a database accessible through a Node.js API.
 Always use the datetime format `YYYY-MM-DD hh:mm:ss` in the requests.
 
-Start the application:
+Start the application in **production**:
 ```
 docker-compose up -d
+```
+
+Start the application in **development**:
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
 ```
 
 Stop the application:

@@ -1,0 +1,6 @@
+services:
+  mabede:
+    build:
+      dockerfile: ./development.dockerfile
+    volumes:
+      - ./mabede/src:/app/src
