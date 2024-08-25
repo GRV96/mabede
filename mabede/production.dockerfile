@@ -7,6 +7,8 @@ COPY ./package.json /app
 
 RUN npm install
 
+COPY ./nodemon.json /app
+
 COPY ./src /app/src
 
 ARG EXPOSED_PORT

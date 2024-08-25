@@ -5,7 +5,9 @@ WORKDIR /app
 
 COPY ./package.json /app
 
-RUN npm install
+RUN npm install --dev
+
+COPY ./nodemon.json /app
 
 # The container will access the source code through
 # a bind mount specified in docker-compose-dev.yml.
@@ -13,4 +15,4 @@ RUN npm install
 ARG EXPOSED_PORT
 EXPOSE ${EXPOSED_PORT}
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start-dev"]
