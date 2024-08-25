@@ -5,7 +5,7 @@
   "main": "mabede.js",
   "scripts": {
     "start": "node ./src/mabede.js",
-    "start-dev": "nodemon --legacy-watch ./src/mabede.js"
+    "start-dev": "nodemon ./src/mabede.js"
   },
   "repository": {
     "type": "git",

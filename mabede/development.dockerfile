@@ -7,6 +7,8 @@ COPY ./package.json /app
 
 RUN npm install --dev
 
+COPY ./nodemon.json /app
+
 # The container will access the source code through
 # a bind mount specified in docker-compose-dev.yml.
 
