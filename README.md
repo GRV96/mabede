@@ -1,7 +1,7 @@
 # Mabede
 
 Mabede is a database accessible through a Node.js API.
-Always use the datetime format `YYYY-MM-DD hh:mm:ss` in the request bodies.
+Always use the datetime format `YYYY-MM-DDThh:mm:ss` in the requests.
 
 Start the application in **production**:
 ```
@@ -46,7 +46,7 @@ Each weather record must have the following attributes.
 **Body example with one weather record**
 ```
 {
-    "moment": "2024-08-12 21:30:00",
+    "moment": "2024-08-12T21:30:00",
     "temperature": 19,
     "preciProb": 0.20,
     "windSpeed": 9
@@ -57,19 +57,19 @@ Each weather record must have the following attributes.
 ```
 [
     {
-        "moment": "2024-08-12 21:30:00",
+        "moment": "2024-08-12T21:30:00",
         "temperature": 19,
         "preciProb": 0.20,
         "windSpeed": 9
     },
     {
-        "moment": "2024-08-18 16:07:50",
+        "moment": "2024-08-18T16:07:50",
         "temperature": 25,
         "preciProb": 0.30,
         "windSpeed": 18
     },
     {
-        "moment": "2024-08-19 18:13:13",
+        "moment": "2024-08-19T18:13:13",
         "temperature": 14,
         "preciProb": 0.70,
         "windSpeed": 16
