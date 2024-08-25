@@ -70,14 +70,14 @@ function deleteWeatherRecord(weatherRecordIds) {
 	});
 }
 
-function getWeatherRecords(startMoment, endMoment) {
+function getWeatherRecords(fromMoment, toMoment) {
 	return new Promise((resolve, reject) => {
-		if (new Date(endMoment) <= new Date(startMoment)) {
-			reject(new MabedeError(400, "Argument endMoment must be later than startMoment."));
+		if (new Date(toMoment) <= new Date(fromMoment)) {
+			reject(new MabedeError(400, "Argument toMoment must be later than fromMoment."));
 		}
 
 		const selectionQuery =
-			`SELECT * FROM WeatherRecords${makeWhereClauseTimeInterval("moment", startMoment, endMoment)};`;
+			`SELECT * FROM WeatherRecords${makeWhereClauseTimeInterval("moment", fromMoment, toMoment)};`;
 		poolPromise.execute(selectionQuery)
 		.then(result => {
 			return resolve(result[0]);
@@ -121,29 +121,29 @@ function makeWhereClauseMultipleIds(columnName, ids) {
 	return ` WHERE ${columnName} IN (${ids.join(", ")})`;
 }
 
-function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
-	const isStartMomentDefined = startMoment != undefined && startMoment != null;
-	const isEndMomentDefined = endMoment != undefined && endMoment != null;
+function makeWhereClauseTimeInterval(columnName, fromMoment, toMoment) {
+	const isfromMomentDefined = fromMoment != undefined && fromMoment != null;
+	const istoMomentDefined = toMoment != undefined && toMoment != null;
 
-	if (!isStartMomentDefined && !isEndMomentDefined)
+	if (!isfromMomentDefined && !istoMomentDefined)
 	{
 		return EMPTY_STR;
 	}
 
 	let whereClause = " WHERE ";
 
-	if (isStartMomentDefined) {
-		startMoment = adjustDateTimeFormat(startMoment);
-		whereClause += `${columnName} >= '${startMoment}'`;
+	if (isfromMomentDefined) {
+		fromMoment = adjustDateTimeFormat(fromMoment);
+		whereClause += `${columnName} >= '${fromMoment}'`;
 	}
 
-	if (isEndMomentDefined) {
-		if (isStartMomentDefined) {
+	if (istoMomentDefined) {
+		if (isfromMomentDefined) {
 			whereClause += " AND ";
 		}
 
-		endMoment = adjustDateTimeFormat(endMoment);
-		whereClause += `${columnName} <= '${endMoment}'`;
+		toMoment = adjustDateTimeFormat(toMoment);
+		whereClause += `${columnName} <= '${toMoment}'`;
 	}
 
 	return whereClause;

@@ -23,10 +23,10 @@ app.post("/add-weather", (req, res) => {
 
 app.get("/get-weather", (req, res) => {
 	const query = req.query;
-	const startMoment = query.startMoment == undefined ? undefined : query.startMoment;
-	const endMoment = query.endMoment == undefined ? undefined : query.endMoment;
+	const fromMoment = query.fromMoment == undefined ? undefined : query.fromMoment;
+	const toMoment = query.toMoment == undefined ? undefined : query.toMoment;
 
-	db.getWeatherRecords(startMoment, endMoment)
+	db.getWeatherRecords(fromMoment, toMoment)
 	.then(weatherRecords => {
 		res.status(200).send(weatherRecords);
 	}).catch(err => {
