@@ -1,7 +1,7 @@
 # Mabede
 
 Mabede is a database accessible through a Node.js API.
-Always use the datetime format `YYYY-MM-DDThh:mm:ss` in the request bodies.
+Always use the datetime format `YYYY-MM-DDThh:mm:ss` in the requests.
 
 Start the application in **production**:
 ```
