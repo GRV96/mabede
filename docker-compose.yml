@@ -15,7 +15,8 @@ services:
     env_file:
       - ./env/database.env
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
   database:
     container_name: database
@@ -24,6 +25,12 @@ services:
       - ./env/database.env
     volumes:
       - mabede-database:/var/lib/mysql
+    healthcheck:
+      test: "mysqladmin ping --silent"
+      interval: 0s
+      timeout: 2s
+      retries: 10
+      start_period: 0s
 
 volumes:
   mabede-database:
