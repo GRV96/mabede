@@ -1,6 +1,9 @@
 const mysql = require("mysql2");
 
 const EMPTY_STR = "";
+const SPACE = " ";
+const UC_T = "T";
+
 const INVALID_IDS_MESSAGE = "IDs: an empty request body or an array of integers is required.";
 const TYPE_STRING = "string";
 
@@ -43,6 +46,10 @@ function addWeatherRecord(weatherData) {
 			return reject(new MabedeError(500, err));
 		});
 	});
+}
+
+function adjustDateTimeFormat(dateTimeStr) {
+	return dateTimeStr.replace(UC_T, SPACE);
 }
 
 function deleteWeatherRecord(weatherRecordIds) {
@@ -126,6 +133,7 @@ function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
 	let whereClause = " WHERE ";
 
 	if (isStartMomentDefined) {
+		startMoment = adjustDateTimeFormat(startMoment);
 		whereClause += `${columnName} >= '${startMoment}'`;
 	}
 
@@ -134,6 +142,7 @@ function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
 			whereClause += " AND ";
 		}
 
+		endMoment = adjustDateTimeFormat(endMoment);
 		whereClause += `${columnName} <= '${endMoment}'`;
 	}
 
@@ -141,7 +150,7 @@ function makeWhereClauseTimeInterval(columnName, startMoment, endMoment) {
 }
 
 function weatherRecordToValueTuple(weatherRecord) {
-	return `('${weatherRecord.moment}', ${weatherRecord.temperature}, ${weatherRecord.preciProb}, ${weatherRecord.windSpeed})`;
+	return `('${adjustDateTimeFormat(weatherRecord.moment)}', ${weatherRecord.temperature}, ${weatherRecord.preciProb}, ${weatherRecord.windSpeed})`;
 }
 
 module.exports = {addWeatherRecord, deleteWeatherRecord, getWeatherRecords};
