@@ -80,7 +80,7 @@ Always use the datetime format `YYYY-MM-DDThh:mm:ss`.
 
 `GET` `[host name]:80/`
 
-The above request returns the application's description.
+This request returns the application's description.
 
 #### [Weather Data Recording](doc/add-weather-en.md)
 
