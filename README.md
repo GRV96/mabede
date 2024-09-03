@@ -35,11 +35,13 @@ Utilisez toujours le format date-heure `YYYY-MM-DDThh:mm:ss`.
 
 Cette requête fournit une description de l'application.
 
-#### Enregistrement de données météorologiques
+#### [Enregistrement de données météorologiques](doc/add-weather-fr.md)
 
 `POST` `[nom d'hôte]:80/add-weather`
 
-[Description](doc/add-weather-fr.md)
+#### [Accès aux données météorologiques](doc/get-weather-fr.md)
+
+`GET` `[nom d'hôte]:80/get-weather`
 
 ## ENGLISH
 
@@ -76,8 +78,10 @@ Always use the datetime format `YYYY-MM-DDThh:mm:ss`.
 
 The above request returns the application's description.
 
-#### Weather Data Recording
+#### [Weather Data Recording](doc/add-weather-en.md)
 
 `POST` `[host name]:80/add-weather`
 
-[Description](doc/add-weather-en.md)
+#### [Access to the Weather Data](doc/get-weather-en.md)
+
+`GET` `[host name]:80/get-weather`
