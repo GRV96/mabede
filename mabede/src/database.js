@@ -1,20 +1,13 @@
 const mysql = require("mysql2");
 
+const MabedeError = require("./mabede-error");
+
 const EMPTY_STR = "";
 const SPACE = " ";
 const UC_T = "T";
 
 const INVALID_IDS_MESSAGE = "IDs: an empty request body or an array of integers is required.";
 const TYPE_STRING = "string";
-
-class MabedeError {
-	constructor(statusCode, content) {
-		this.statusCode = statusCode;
-		this.content = content;
-	}
-
-	toString = () => `[${this.statusCode}] ${this.content}`;
-}
 
 const pool = mysql.createPool({
 	host: process.env.MYSQL_HOST,
