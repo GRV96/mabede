@@ -1,7 +1,55 @@
 # Mabede
 
-Mabede is a database accessible through a Node.js API.
-Always use the datetime format `YYYY-MM-DDThh:mm:ss` in the requests.
+## FRANÇAIS
+
+Mabede est une base de données météorologiques accessible par une API Node.js.
+
+Démarrer l'application en **production**:
+```
+docker-compose up -d
+```
+
+Démarrer l'application en **développement**:
+```
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d
+```
+
+Arrêter l'application:
+```
+docker-compose down
+```
+
+Supprimer l'image créée par docker-compose:
+```
+docker image rm mabede-mabede
+```
+
+### Requêtes
+
+L'API peut recevoir les requêtes suivantes.
+Utilisez toujours le format date-heure `YYYY-MM-DDThh:mm:ss`.
+
+#### Description de l'application
+
+`GET` `[nom d'hôte]:80/`
+
+Cette requête fournit une description de l'application.
+
+#### [Enregistrement de données météorologiques](doc/add-weather-fr.md)
+
+`POST` `[nom d'hôte]:80/add-weather`
+
+#### [Accès aux données météorologiques](doc/get-weather-fr.md)
+
+`GET` `[nom d'hôte]:80/get-weather`
+
+#### [Suppression de données météorologiques](doc/delete-weather-fr.md)
+
+`DELETE` `[nom d'hôte]:80/delete-weather`
+
+## ENGLISH
+
+Mabede is a weather database accessible through a Node.js API.
 
 Start the application in **production**:
 ```
@@ -18,61 +66,30 @@ Stop the application:
 docker-compose down
 ```
 
-Delete the image created with docker-compose:
+Delete the image created by docker-compose:
 ```
 docker image rm mabede-mabede
 ```
 
-### Description
+### Requests
+
+The API can recieve the following requests.
+Always use the datetime format `YYYY-MM-DDThh:mm:ss`.
+
+#### Application Description
 
 `GET` `[host name]:80/`
 
-The above request returns the API's description.
+This request returns the application's description.
 
-### Record weather data
+#### [Weather Data Recording](doc/add-weather-en.md)
 
 `POST` `[host name]:80/add-weather`
 
-The above request writes weather data in the database.
-The request's body must consist of a weather record or
-an array of weather records in the JSON format.
-Each weather record must have the following attributes.
+#### [Access to the Weather Data](doc/get-weather-en.md)
 
-* `moment` (datetime): the moment when the data was recorded
-* `temperature` (number): the temperature in degrees Celsius
-* `preciProb` (number): the precipitation probability
-* `windSpeed` (number): the wind speed in kilometers per hour (km/h)
+`GET` `[host name]:80/get-weather`
 
-**Body example with one weather record**
-```
-{
-    "moment": "2024-08-12T21:30:00",
-    "temperature": 19,
-    "preciProb": 0.20,
-    "windSpeed": 9
-}
-```
+#### [Weather Data Deletion](doc/delete-weather-en.md)
 
-**Body example with an array of weather records**
-```
-[
-    {
-        "moment": "2024-08-12T21:30:00",
-        "temperature": 19,
-        "preciProb": 0.20,
-        "windSpeed": 9
-    },
-    {
-        "moment": "2024-08-18T16:07:50",
-        "temperature": 25,
-        "preciProb": 0.30,
-        "windSpeed": 18
-    },
-    {
-        "moment": "2024-08-19T18:13:13",
-        "temperature": 14,
-        "preciProb": 0.70,
-        "windSpeed": 16
-    }
-]
-```
+`DELETE` `[host name]:80/delete-weather`
