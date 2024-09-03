@@ -29,11 +29,11 @@ docker image rm mabede-mabede
 L'API peut recevoir les requêtes suivantes.
 Utilisez toujours le format date-heure `YYYY-MM-DDThh:mm:ss`.
 
-#### Description de l'API
+#### Description de l'application
 
 `GET` `[nom d'hôte]:80/`
 
-Cette requête fournit une description de l'API.
+Cette requête fournit une description de l'application.
 
 #### Enregistrement de données météorologiques
 
@@ -70,13 +70,13 @@ docker image rm mabede-mabede
 The API can recieve the following requests.
 Always use the datetime format `YYYY-MM-DDThh:mm:ss`.
 
-#### API Description
+#### Application Description
 
 `GET` `[host name]:80/`
 
-The above request returns the API's description.
+The above request returns the application's description.
 
-#### Weather data recording
+#### Weather Data Recording
 
 `POST` `[host name]:80/add-weather`
 

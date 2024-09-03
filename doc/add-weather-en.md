@@ -1,4 +1,4 @@
-# Weather data recording
+# Weather Data Recording
 
 `POST` `[host name]:80/add-weather`
 
