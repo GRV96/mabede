@@ -43,6 +43,10 @@ Cette requête fournit une description de l'application.
 
 `GET` `[nom d'hôte]:80/get-weather`
 
+#### [Suppression de données météorologiques](doc/delete-weather-fr.md)
+
+`DELETE` `[nom d'hôte]:80/delete-weather`
+
 ## ENGLISH
 
 Mabede is a weather database accessible through a Node.js API.
@@ -85,3 +89,7 @@ The above request returns the application's description.
 #### [Access to the Weather Data](doc/get-weather-en.md)
 
 `GET` `[host name]:80/get-weather`
+
+#### [Weather Data Deletion](doc/delete-weather-en.md)
+
+`DELETE` `[host name]:80/delete-weather`

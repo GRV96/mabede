@@ -4,6 +4,7 @@
 
 This request returns a JSON array containing all weather data recorded in
 Mabede.
+Each has a unique numeric ID.
 Parameters `fromMoment` and `toMoment` are inclusive bounds that allow to limit
 the selection to a time interval.
 

@@ -4,6 +4,7 @@
 
 Cette requête renvoie un tableau JSON contenant toutes les données
 météorologiques enregistrées dans Mabede.
+Chacune possède un identifiant numérique unique.
 Les paramètres `fromMoment` et `toMoment` sont des bornes inclusives permettant
 de limiter la sélection à un intervalle de temps.
 
