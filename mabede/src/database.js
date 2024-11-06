@@ -115,23 +115,23 @@ function makeWhereClauseMultipleIds(columnName, ids) {
 }
 
 function makeWhereClauseTimeInterval(columnName, fromMoment, toMoment) {
-	const isfromMomentDefined = fromMoment != undefined && fromMoment != null;
-	const istoMomentDefined = toMoment != undefined && toMoment != null;
+	const isFromMomentDefined = fromMoment != undefined && fromMoment != null;
+	const isToMomentDefined = toMoment != undefined && toMoment != null;
 
-	if (!isfromMomentDefined && !istoMomentDefined)
+	if (!isFromMomentDefined && !isToMomentDefined)
 	{
 		return EMPTY_STR;
 	}
 
 	let whereClause = " WHERE ";
 
-	if (isfromMomentDefined) {
+	if (isFromMomentDefined) {
 		fromMoment = adjustDateTimeFormat(fromMoment);
 		whereClause += `${columnName} >= '${fromMoment}'`;
 	}
 
-	if (istoMomentDefined) {
-		if (isfromMomentDefined) {
+	if (isToMomentDefined) {
+		if (isFromMomentDefined) {
 			whereClause += " AND ";
 		}
 
