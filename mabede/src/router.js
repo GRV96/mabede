@@ -12,7 +12,7 @@ router.post("/add-weather", (req, res) => {
 	const reqBody = req.body;
 	db.addWeatherRecord(reqBody)
 	.then(() => {
-		res.sendStatus(200);
+		res.sendStatus(201);
 	}).catch(err => {
 		res.status(error.statusCode).send(err.content);
 	});
